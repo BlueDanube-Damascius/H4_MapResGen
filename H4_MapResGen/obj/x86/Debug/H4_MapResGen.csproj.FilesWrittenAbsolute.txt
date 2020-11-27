@@ -1,0 +1,5 @@
+/home/s/mono/H4_MapResGen/H4_MapResGen/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/s/mono/H4_MapResGen/H4_MapResGen/bin/Debug/H4_MapResGen.exe.mdb
+/home/s/mono/H4_MapResGen/H4_MapResGen/bin/Debug/H4_MapResGen.exe
+/home/s/mono/H4_MapResGen/H4_MapResGen/obj/x86/Debug/H4_MapResGen.exe
+/home/s/mono/H4_MapResGen/H4_MapResGen/obj/x86/Debug/H4_MapResGen.exe.mdb
