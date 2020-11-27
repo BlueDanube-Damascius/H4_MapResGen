@@ -13,7 +13,7 @@ namespace H4_MapResGen
 {
 	public class MainClass
 	{
-		private static readonly double Version = 0.1;
+		private static readonly string Version = "0.1.1";
 		private static readonly DateTime VersionDate = new DateTime (2020, 11, 27);
 
 		public static void Main (string[] args)
@@ -47,7 +47,7 @@ namespace H4_MapResGen
 					bool correctFile = false;
 					string filename = "foo";
 					while (!correctFile) {
-						Console.WriteLine ("Please input filename (including extension)");
+						Console.WriteLine ("Please input filename (CasE-SenSiTiVe) (including extension)");
 						var search = Console.ReadLine ();
 						filename = FileManagement.GetImportFile (search);
 						Console.WriteLine ("Is the file: {0} ? (y/n)", filename);
@@ -72,19 +72,27 @@ namespace H4_MapResGen
 				}
 			}
 
+			Console.WriteLine("Do you want to generate multiple core owners for one state (y/n)");
+			Console.WriteLine("WARNING: second tag is randomly assigned from the list imported - advised you import a limited selection of TAGs if you do this.");
+			Console.WriteLine("If you didn't import a TAG list, or the random assignment of TAG is the same twice, you'll only get one row, no matter what you pick here.");
+			input = Console.ReadLine ();
+			container.TwoCores = ValidateYesNoInput(input);
+
 			int counter = 0;
 			while (counter < stateNumber) {
 				Console.WriteLine ("Generating states...");
 				State newState = Generation.GenerateState (counter, stateId, container);
 				Console.WriteLine ("State: {0} generated", newState.StateName);
 				Console.WriteLine ("Saving output to local folder.");
-				FileManagement.SaveStatetoTextFile (newState);
+				FileManagement.SaveStatetoTextFile (newState, container.ImportedProvinces);
 				if (stateId != 0) {
 					stateId++;
 				}
 				counter++;
 			}
 			Console.WriteLine ("Generation of {0} states, complete", counter);
+			Console.WriteLine ("Press Any Key to Kill.");
+			Console.ReadKey ();
 		}
 
 

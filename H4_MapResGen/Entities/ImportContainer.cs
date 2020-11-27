@@ -7,7 +7,8 @@ namespace H4_MapResGen
 	{
 		public List<string> ImportedNames { get; set; }
 		public List<string> ImportedTAGs { get; set; }
-		public List<string> ImportedProvinces {get;set;}
+		public List<string> ImportedProvinces { get; set; }
+		public bool TwoCores { get; set; }
 	}
 }
 

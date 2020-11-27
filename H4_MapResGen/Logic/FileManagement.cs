@@ -9,7 +9,8 @@ namespace H4_MapResGen.Logic
 {
 	public class FileManagement
 	{
-		public static char[] seperators = {',',';','-'};
+		public static char[] seperators = { ',', ';', '-' };
+
 		public static string GetImportFile (string search)
 		{
 			var importFile = Directory.GetFiles (Environment.CurrentDirectory, search);	
@@ -29,7 +30,7 @@ namespace H4_MapResGen.Logic
 			return SanitiseImport (import);
 		}
 
-		public static List<string> SanitiseImport(List<string> import)
+		public static List<string> SanitiseImport (List<string> import)
 		{
 			var sanitisedTexts = new List<string> ();
 			foreach (var str in import) {
@@ -41,10 +42,10 @@ namespace H4_MapResGen.Logic
 			return sanitisedTexts;
 		}
 
-		public static void SaveStatetoTextFile (State newState)
+		public static void SaveStatetoTextFile (State newState, List<string> importedProvinces)
 		{
 			var filename = Generation.GenerateFileName (newState.StateId, newState.StateName);
-			var payload = SerialiseState (newState);
+			var payload = SerialiseState (newState, importedProvinces);
 			using (StreamWriter sw = new StreamWriter (Path.Combine (Environment.CurrentDirectory, filename))) {
 				foreach (var line in payload) {
 					sw.WriteLine (line);
@@ -52,8 +53,22 @@ namespace H4_MapResGen.Logic
 			}
 		}
 
-		public static List<string> SerialiseState (State newState)
+		public static List<string> SerialiseState (State newState, List<string> importedProvinces)
 		{
+			string vp1provID = "ProvinceID";
+			string vp2provID = "ProvinceID";
+			Dictionary<int,string> provinceDict = new Dictionary<int, string> ();
+
+			if (importedProvinces != null) {
+				int i = 0;
+				foreach (var provinceID in importedProvinces) {
+					provinceDict.Add (i, provinceID);
+					i++;
+				}
+				provinceDict.TryGetValue (Generation.GetRandomNumber (0, provinceDict.Count), out vp1provID);
+				provinceDict.TryGetValue (Generation.GetRandomNumber (0, provinceDict.Count), out vp2provID);			
+			}
+
 			var retVal = new List<string> ();
 			retVal.Add ("");
 			retVal.Add ("state = {");
@@ -76,12 +91,12 @@ namespace H4_MapResGen.Logic
 			retVal.Add ("");
 			if (newState.History.VictoryPoints1 != 0) {
 				retVal.Add ("\t\tvictory_points = {");
-				retVal.Add ("\t\t\tProvinceID " + newState.History.VictoryPoints1 + "#change ProvinceID");
+				retVal.Add ("\t\t\t" + vp1provID + " " + newState.History.VictoryPoints1 + " #change if ProvinceID");
 				retVal.Add ("\t\t}");
 			}
 			if (newState.History.VictoryPoints2 != 0) {
 				retVal.Add ("\t\tvictory_points = {");
-				retVal.Add ("\t\t\tProvinceID " + newState.History.VictoryPoints2 + "#change ProvinceID");
+				retVal.Add ("\t\t\t" + vp2provID + " " + newState.History.VictoryPoints2 + " #change if ProvinceID");
 				retVal.Add ("\t\t}");
 			}
 			retVal.Add ("");
@@ -94,10 +109,15 @@ namespace H4_MapResGen.Logic
 			retVal.Add ("\t\t}");
 			retVal.Add ("");
 			retVal.Add ("\t\t" + newState.History.Core);
+			if (newState.History.Core2.IsNotNullOrEmpty ()) {
+				retVal.Add ("\t\t" + newState.History.Core2);}
 			retVal.Add ("\t}");
 			retVal.Add ("");
 			retVal.Add ("\tprovinces = {");
-			retVal.Add ("\tProvinceID ProvinceID ProvinceID ProvinceID ProvinceID ProvinceID ProvinceID ProvinceID ProvinceID #change these");
+
+			string provinces = Generation.GenerateProvincesString(vp1provID, vp2provID, importedProvinces, provinceDict);
+							
+			retVal.Add ("\t\t" + vp1provID + " " + vp2provID + " " + provinces + " #change these if ProvinceID");
 			retVal.Add ("\t}");
 			retVal.Add ("}");
 
