@@ -1,0 +1,14 @@
+ #nothing after the first 12 values of the list will be read 
+each of these overwrites a default value for the range of random generation - all values must be 0 or higher and max boundary will be specified here if in place
+_manpowerMinValue - lower limit for manpower to be
+_manpowerMaxValue - upper limit for manpower to be
+_vp1MaxValue - first province victory points upper limit
+_vp2MaxValue - second province victory points upper limit (only 2 supported rn)
+_resourceLowerBound - lower limit for resource generation in a state 
+_resourceUpperBound - upper limit for resource generation in a province
+_buildingLowerBound - lower limit for buildings - max 3 so as not to break the upper values of ranges
+_buildingMax3 - upper limit for radarstation - max 3 
+_buildingMax5 - upper limit for anti_air_building - max 5;
+_buildingMax10 - upper limit for infrastructure air_base naval_base bunker coastal_bunker - max 10
+_buildingMax20 - upper limit for industrialcomplex armsfactory - max 20
+_toggleRocketsandNukes - toggles rocket and nuclear reactor generation. 0 off 1 on

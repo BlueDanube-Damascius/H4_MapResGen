@@ -8,25 +8,23 @@ namespace H4_MapResGen.Logic
 {
 	public class Generation
 	{
-		private const int geographyMaxValue = 19;
-		//enum currently contains 20 items.
+		private const int geographyMaxValue = 21;
+		//enum currently contains 22 items.
 
-		private static readonly int manpowerMinValue = 10000;
-		private static readonly int manpowerMaxValue = 3000000;
-		private static readonly int vp1MaxValue = 50;
-		private static readonly int vp2MaxValue = 20;
-		private static readonly int buildingLowerBound = 0;
-		private static readonly int buildingMax3 = 3;
-		private static readonly int buildingMax5 = 5;
-		private static readonly int buildingMax10 = 10;
-		private static readonly int buildingMax20 = 20;
+		private static int _manpowerMinValue = 10000;
+		private static int _manpowerMaxValue = 3000000;
+		private static int _vp1MaxValue = 50;
+		private static int _vp2MaxValue = 20;
+		private static int _resourceLowerBound = 0;
+		private static int _resourceUpperBound = 50;
+		private static int _buildingLowerBound = 0;
+		private static int _buildingMax3 = 3;
+		private static int _buildingMax5 = 5;
+		private static int _buildingMax10 = 10;
+		private static int _buildingMax20 = 20;
+		private static bool _toggleRocketsandNukes = false;
 
 		private static readonly Random getrandom = new Random ();
-
-		Generation ()
-		{
-			
-		}
 
 		public static int GetRandomNumber (int min, int max)
 		{
@@ -37,14 +35,19 @@ namespace H4_MapResGen.Logic
 
 		public static State GenerateState (int counter, int stateId, ImportContainer importedObjects)
 		{
-			int manpower = GetRandomNumber (manpowerMinValue, manpowerMaxValue);
+			if (importedObjects.ImportedDefaults != null)
+			{
+				ExtractAndUpdateDefaultsToImport (importedObjects.ImportedDefaults);
+			}
+
+			int manpower = GetRandomNumber (_manpowerMinValue, _manpowerMaxValue);
 			string TAG = GetTAG (importedObjects.ImportedTAGs);
 			string secondTAG = GetTAG (importedObjects.ImportedTAGs);
 
 			History history = new History ();
 			history.Owner = "owner = " + TAG;
-			history.VictoryPoints1 = GetRandomNumber (0, vp1MaxValue);
-			history.VictoryPoints2 = GetRandomNumber (0, vp2MaxValue);
+			history.VictoryPoints1 = GetRandomNumber (0, _vp1MaxValue);
+			history.VictoryPoints2 = GetRandomNumber (0, _vp2MaxValue);
 			history.Core = "add_core_of = " + TAG;
 			if (TAG != secondTAG && importedObjects.TwoCores) {
 				history.Core2 = "add_core_of = " + secondTAG;
@@ -60,6 +63,64 @@ namespace H4_MapResGen.Logic
 				Resources = PopulateResources (),
 				History = history
 			};
+		}
+
+		public static void ExtractAndUpdateDefaultsToImport (List<string> importedDefaults)
+		{
+			const int max = 12;
+			int i = 0;
+			int[] Out = new int [max];
+
+			while (i < max) {
+				Int32.TryParse (importedDefaults [i], out Out [i]);
+				if (Out [i] >= 0) {
+					if (i < 5) {
+						switch (i) {
+						case 0:
+							_manpowerMinValue = Out [i];
+							break;
+						case 1:
+							_manpowerMaxValue = Out [i];
+							break;
+						case 2:
+							_vp1MaxValue = Out [i];
+							break;
+						case 3:
+							_vp2MaxValue = Out [i];
+							break;
+						case 4:
+							_resourceLowerBound = Out [i];
+							break;
+						case 5:
+							_resourceUpperBound = Out [i];
+							break;
+						}
+					}
+					if ((i == 6 || i == 7) && Out[i] <= 3) {
+						switch (i) {
+						case 6:
+							_buildingLowerBound = Out [i];
+							break;
+						case 7:
+							_buildingMax3 = Out [i];
+							break;
+						}
+					}
+					if (i == 8 && Out [i] <= 5) {
+						_buildingMax5 = Out [i];
+					}
+					if (i == 9 && Out [i] <= 10) {
+						_buildingMax5 = Out [i];
+					}
+					if (i == 10 && Out [i] <= 20) {
+						_buildingMax5 = Out [i];
+					}
+					if (i == 11 && Out [i] == 1) {
+						_toggleRocketsandNukes = true;
+					}
+					i++;
+				}
+			}
 		}
 
 		public static string GetTAG (List<string> importedTAGs)
@@ -161,7 +222,7 @@ namespace H4_MapResGen.Logic
 			string[] input = { "oil", "aluminium", "rubber", "tungsten", "steel", "chromium" };
 			var resources = new List<string> (input);
 			foreach (var resource in resources) {
-				retVal.Add (resource, GetRandomNumber (0, 50));
+				retVal.Add (resource, GetRandomNumber (_resourceLowerBound, _resourceUpperBound));
 			}
 
 			return retVal;
@@ -173,14 +234,19 @@ namespace H4_MapResGen.Logic
 			string[] input = { "infrastructure", "air_base", "naval_base", "bunker", "coastal_bunker" };
 			var buildings = new List<string> (input);
 			foreach (var building in buildings) {
-				retVal.Add (building, GetRandomNumber (buildingLowerBound, buildingMax10));
+				retVal.Add (building, GetRandomNumber (_buildingLowerBound, _buildingMax10));
 			}
 
-			retVal.Add ("arms_factory", GetRandomNumber (buildingLowerBound, buildingMax20));
-			retVal.Add ("industrial_complex", GetRandomNumber (buildingLowerBound, buildingMax20));
-			retVal.Add ("dockyard", GetRandomNumber (buildingLowerBound, buildingMax20));
-			retVal.Add ("anti_air_building", GetRandomNumber (buildingLowerBound, buildingMax5));
-			retVal.Add ("radar_station", GetRandomNumber (buildingLowerBound, buildingMax3));
+			retVal.Add ("arms_factory", GetRandomNumber (_buildingLowerBound, _buildingMax20));
+			retVal.Add ("industrial_complex", GetRandomNumber (_buildingLowerBound, _buildingMax20));
+			retVal.Add ("dockyard", GetRandomNumber (_buildingLowerBound, _buildingMax20));
+			retVal.Add ("anti_air_building", GetRandomNumber (_buildingLowerBound, _buildingMax5));
+			retVal.Add ("radar_station", GetRandomNumber (_buildingLowerBound, _buildingMax3));
+
+			if (_toggleRocketsandNukes) {
+				retVal.Add ("nuclear_reactor", GetRandomNumber (0,1));
+				retVal.Add ("rocket_site", GetRandomNumber(0,1));
+			}
 
 			return retVal;
 		}
@@ -213,6 +279,7 @@ namespace H4_MapResGen.Logic
 			}
 			return output;
 		}
+
 		public static string GenerateFileName (int stateId, string stateName)
 		{
 			return stateId + " " + stateName + ".txt";

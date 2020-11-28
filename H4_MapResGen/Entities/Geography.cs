@@ -23,7 +23,9 @@ namespace H4_MapResGen.Entities
 		Littoral = 16,
 		Hills = 17,
 		Rise = 18,
-		Desert = 19
+		Desert = 19,
+		Isthmus = 20,
+		Peninsula = 21
 			// if you add values to this you must update geographyMaxValue in Generation.cs
 	}
 }

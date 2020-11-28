@@ -13,7 +13,7 @@ namespace H4_MapResGen
 {
 	public class MainClass
 	{
-		private static readonly string Version = "0.1.1";
+		private static readonly string Version = "0.1.2";
 		private static readonly DateTime VersionDate = new DateTime (2020, 11, 27);
 
 		public static void Main (string[] args)
@@ -37,7 +37,7 @@ namespace H4_MapResGen
 			}
 				
 			ImportContainer container = new ImportContainer();
-			List<string> importStrings = new List<string> {"State Name","TAG","Province ID"};
+			List<string> importStrings = new List<string> {"State Name","TAG","Province ID","New Generation Defaults"};
 			foreach (var importString in importStrings) {
 				Console.WriteLine ("Import {0} list from local folder? (y/n)",importString);
 				input = Console.ReadLine ();
@@ -66,6 +66,9 @@ namespace H4_MapResGen
 							break;
 						case "Province ID":
 							container.ImportedProvinces = FileManagement.ImportText (filename);
+							break;
+						case "New Generation Defaults":
+							container.ImportedDefaults = FileManagement.ImportText (filename);
 							break;
 						}
 					}
