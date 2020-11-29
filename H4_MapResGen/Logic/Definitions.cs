@@ -46,7 +46,7 @@ namespace H4_MapResGen.Logic
 			if (LSLoverride) {
 				Console.WriteLine ("Land (0) Sea (1) Lakes (2):");
 				input = Console.ReadLine ();
-				Int32.TryParse (input, out continentsLowerBound);
+				Int32.TryParse (input, out LSLinput);
 				container.LSLinput = LSLinput;
 			}
 
