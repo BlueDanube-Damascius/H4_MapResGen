@@ -7,7 +7,7 @@ namespace H4_MapResGen.Logic
 	{
 		public static void DefinitionsMain ()
 		{
-			DefinitionContainer container = new DefinitionContainer ();
+ 			DefinitionContainer container = new DefinitionContainer ();
 			Console.WriteLine ("Input number of provinces requiring definition:");
 			var input = Console.ReadLine ();
 			int provNumber = 1;

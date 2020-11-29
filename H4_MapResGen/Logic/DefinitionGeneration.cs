@@ -126,7 +126,7 @@ namespace H4_MapResGen
 		{
 			var retVal = new List<string> ();
 			foreach (var province in definitions) {
-				var definition = province.ProvId + Seperator + province.RGBvalue + Seperator + province.Humidity + Seperator + province.IsCoastal + Seperator + province.ContinentId + Seperator;
+				var definition = province.ProvId + Seperator + province.RGBvalue + Seperator + province.Humidity + Seperator + province.IsCoastal + Seperator + province.TerrainType + Seperator + province.ContinentId + Seperator;
 				retVal.Add (definition);
 			}
 					return retVal;
