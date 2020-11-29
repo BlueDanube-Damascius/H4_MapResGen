@@ -1,0 +1,19 @@
+﻿<Properties StartupItem="H4_MapResGen/H4_MapResGen.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="H4_MapResGen/Logic/DefinitionGeneration.cs">
+    <Files>
+      <File FileName="H4_MapResGen/Program.cs" Line="66" Column="2" />
+      <File FileName="H4_MapResGen/Logic/FileManagement.cs" Line="60" Column="50" />
+      <File FileName="H4_MapResGen/Logic/DefinitionGeneration.cs" Line="113" Column="11" />
+      <File FileName="H4_MapResGen/Logic/StateGeneration.cs" Line="1" Column="1" />
+      <File FileName="H4_MapResGen/Logic/Definitions.cs" Line="63" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/home/s/mono/H4_MapResGen/H4_MapResGen/Logic/Generation.cs" line="247" column="14" />
+      <Breakpoint file="/home/s/mono/H4_MapResGen/H4_MapResGen/Logic/DefinitionGeneration.cs" line="124" column="40" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
