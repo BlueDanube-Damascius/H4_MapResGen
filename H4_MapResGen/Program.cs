@@ -13,8 +13,8 @@ namespace H4_MapResGen
 {
 	public class MainClass
 	{
-		private static readonly string Version = "0.1.3";
-		private static readonly DateTime VersionDate = new DateTime (2020, 11, 28);
+		private static readonly string Version = "0.1.4";
+		private static readonly string VersionDate = new DateTime (2020, 11, 29).ToShortDateString();
 		private static readonly Random getrandom = new Random ();
 
 		public static int GetRandomNumber (int min, int max)

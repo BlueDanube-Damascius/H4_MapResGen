@@ -98,7 +98,7 @@ namespace H4_MapResGen
 			var provincesAdjusted = provId + provNumber;
 			var provincesPerContinent = (provNumber / continentNumber);
 			var continentIDlist = new List<int> ();
-			while (j > k) {
+			while (j >= k) {
 				continentIDlist.Add (j);
 				j--;
 			}
