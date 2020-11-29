@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using H4_MapResGen.Entities;
+using H4_MapResGen.Entities.Definitions;
+using H4_MapResGen.Entities.States;
 
 namespace H4_MapResGen.Logic
 {
@@ -44,8 +45,8 @@ namespace H4_MapResGen.Logic
 
 		public static void SaveStatetoTextFile (State newState, List<string> importedProvinces)
 		{
-			var filename = Generation.GenerateFileName (newState.StateId, newState.StateName);
-			var payload = SerialiseState (newState, importedProvinces);
+			var filename = StateGeneration.GenerateFileName (newState.StateId, newState.StateName);
+			var payload = StateGeneration.SerialiseState (newState, importedProvinces);
 			using (StreamWriter sw = new StreamWriter (Path.Combine (Environment.CurrentDirectory, filename))) {
 				foreach (var line in payload) {
 					sw.WriteLine (line);
@@ -53,75 +54,15 @@ namespace H4_MapResGen.Logic
 			}
 		}
 
-		public static List<string> SerialiseState (State newState, List<string> importedProvinces)
+		public static void SaveDefinitionstoCsv(List<ProvinceDefinition> definitions, string filename)
 		{
-			string vp1provID = "ProvinceID";
-			string vp2provID = "ProvinceID";
-			Dictionary<int,string> provinceDict = new Dictionary<int, string> ();
-
-			if (importedProvinces != null) {
-				int i = 0;
-				foreach (var provinceID in importedProvinces) {
-					provinceDict.Add (i, provinceID);
-					i++;
-				}
-				provinceDict.TryGetValue (Generation.GetRandomNumber (0, provinceDict.Count), out vp1provID);
-				provinceDict.TryGetValue (Generation.GetRandomNumber (0, provinceDict.Count), out vp2provID);			
-			}
-
-			var retVal = new List<string> ();
-			retVal.Add ("");
-			retVal.Add ("state = {");
-			retVal.Add ("\tid = " + newState.StateId);
-			retVal.Add ("\tname = " + newState.StateName);
-			retVal.Add ("\tmanpower = " + newState.Manpower);
-			retVal.Add ("");
-			retVal.Add ("\tstate_category = " + newState.StateCategory);
-			retVal.Add ("");
-			retVal.Add ("\tresources = {");
-			foreach (var pair in newState.Resources) {
-				if (pair.Value != 0) {
-					retVal.Add ("\t\t" + pair.Key + "=" + pair.Value);
+			filename = (filename != string.Empty ? filename + ".csv" : "H4_Gen_Definitions.csv");
+			var payload = DefinitionGeneration.SerialisedObjects (definitions);
+			using (StreamWriter sw = new StreamWriter (Path.Combine (Environment.CurrentDirectory, filename))) {
+				foreach (var line in payload) {
+					sw.WriteLine (line);
 				}
 			}
-			retVal.Add ("\t}");
-			retVal.Add ("");
-			retVal.Add ("\thistory = {");
-			retVal.Add ("\t\t" + newState.History.Owner);
-			retVal.Add ("");
-			if (newState.History.VictoryPoints1 != 0) {
-				retVal.Add ("\t\tvictory_points = {");
-				retVal.Add ("\t\t\t" + vp1provID + " " + newState.History.VictoryPoints1 + " #change if ProvinceID");
-				retVal.Add ("\t\t}");
-			}
-			if (newState.History.VictoryPoints2 != 0) {
-				retVal.Add ("\t\tvictory_points = {");
-				retVal.Add ("\t\t\t" + vp2provID + " " + newState.History.VictoryPoints2 + " #change if ProvinceID");
-				retVal.Add ("\t\t}");
-			}
-			retVal.Add ("");
-			retVal.Add ("\t\tbuildings = {");
-			foreach (var pair in newState.History.Buildings) { 
-				if (pair.Value != 0) {
-					retVal.Add ("\t\t\t" + pair.Key + "=" + pair.Value);
-				}
-			}
-			retVal.Add ("\t\t}");
-			retVal.Add ("");
-			retVal.Add ("\t\t" + newState.History.Core);
-			if (newState.History.Core2.IsNotNullOrEmpty ()) {
-				retVal.Add ("\t\t" + newState.History.Core2);}
-			retVal.Add ("\t}");
-			retVal.Add ("");
-			retVal.Add ("\tprovinces = {");
-
-			string provinces = Generation.GenerateProvincesString(vp1provID, vp2provID, importedProvinces, provinceDict);
-							
-			retVal.Add ("\t\t" + vp1provID + " " + vp2provID + " " + provinces + " #change these if ProvinceID");
-			retVal.Add ("\t}");
-			retVal.Add ("}");
-
-			return retVal;
 		}
 	}
 }

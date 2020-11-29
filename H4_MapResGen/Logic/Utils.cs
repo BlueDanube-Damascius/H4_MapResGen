@@ -11,4 +11,3 @@ namespace H4_MapResGen.Logic
 		}
 	}
 }
-
