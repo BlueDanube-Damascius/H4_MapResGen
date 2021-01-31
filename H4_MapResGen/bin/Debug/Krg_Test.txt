@@ -1,0 +1,15 @@
+add_namespace ="Krg_Test"
+
+	country_event = {
+		id = "Krg_Test.1"
+		title = "Krg_Test.1.t"
+		desc = "Krg_Test.1.d"
+		is_triggered_only = yes
+		fire_only_once = yes
+		
+			option = {
+			name = "Krg_Test.1.a"
+			#put your shit here
+			}
+	}
+

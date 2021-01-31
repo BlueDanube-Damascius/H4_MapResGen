@@ -50,6 +50,10 @@
     <Compile Include="Entities\States\StatesContainer.cs" />
     <Compile Include="Entities\Definitions\DefinitionContainer.cs" />
     <Compile Include="Entities\Definitions\ProvinceDefinition.cs" />
+    <Compile Include="Logic\Events.cs" />
+    <Compile Include="Entities\Events\Resources.cs" />
+    <Compile Include="Entities\Events\EventContainer.cs" />
+    <Compile Include="Logic\EventGeneration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -57,5 +61,7 @@
     <Folder Include="Logic\" />
     <Folder Include="Entities\Definitions\" />
     <Folder Include="Entities\States\" />
+    <Folder Include="Entities\Events\" />
+    <Folder Include="Entities\Focus Trees\" />
   </ItemGroup>
 </Project>

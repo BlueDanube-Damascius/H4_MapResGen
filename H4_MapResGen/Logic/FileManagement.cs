@@ -64,5 +64,15 @@ namespace H4_MapResGen.Logic
 				}
 			}
 		}
+
+		public static void SaveEventsToFile(List<string> events, string _namespace)
+		{
+			var filename = _namespace + ".txt";
+			using (StreamWriter sw = new StreamWriter (Path.Combine (Environment.CurrentDirectory, filename))) {
+				foreach (var line in events) {
+					sw.WriteLine (line);
+				}
+			}
+		}
 	}
 }

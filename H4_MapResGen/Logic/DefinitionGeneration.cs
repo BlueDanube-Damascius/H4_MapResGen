@@ -39,7 +39,7 @@ namespace H4_MapResGen
 			
 			foreach (var value in RGBValues) {
 				if (container.LSLinput == 99) {
-					humidity = (LandSeaLake)MainClass.GetRandomNumber (0, 2);
+					humidity = (LandSeaLake)MainClass.GetRandomNumber (0, 3);
 				}
 				var province = new ProvinceDefinition ();
 				province.ProvId = provId;
@@ -53,7 +53,6 @@ namespace H4_MapResGen
 				}
 				retVal.Add (province);
 				provId++;
-				i++;
 			}
 			return retVal;
 		}
@@ -68,8 +67,9 @@ namespace H4_MapResGen
 
 		public static bool EvaluateIfCoastal (LandSeaLake Humidity)
 		{
+			var number = MainClass.GetRandomNumber (0, 2);
 			var retVal = false; //not coastal
-			if (MainClass.GetRandomNumber (0, 1) == 1 && Humidity != LandSeaLake.Lake) { //a coastal lake is sea!
+			if ( number == 1 && Humidity != LandSeaLake.Lake) { //a coastal lake is sea!
 				retVal = true; //coastal
 			}
 			return retVal;
@@ -114,7 +114,7 @@ namespace H4_MapResGen
 			}
 
 			//just incase pPC is less than total due to rounding, add to last continent in list
-			while (provId > provincesAdjusted) {
+			while (provId < provincesAdjusted) {
 				retVal.Add(provId, continents);
 					provId++;
 			}

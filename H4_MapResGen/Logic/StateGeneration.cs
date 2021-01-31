@@ -216,7 +216,7 @@ namespace H4_MapResGen.Logic
 		public static Dictionary<string,int> PopulateBuildings ()
 		{
 			Dictionary<string,int> retVal = new Dictionary<string,int> ();
-			string[] input = { "infrastructure", "air_base", "naval_base", "bunker", "coastal_bunker" };
+			string[] input = { "infrastructure", "air_base" }; //, "naval_base", "bunker", "coastal_bunker" };
 			var buildings = new List<string> (input);
 			foreach (var building in buildings) {
 				retVal.Add (building, MainClass.GetRandomNumber (_buildingLowerBound, _buildingMax10));
@@ -224,7 +224,7 @@ namespace H4_MapResGen.Logic
 
 			retVal.Add ("arms_factory", MainClass.GetRandomNumber (_buildingLowerBound, _buildingMax20));
 			retVal.Add ("industrial_complex", MainClass.GetRandomNumber (_buildingLowerBound, _buildingMax20));
-			retVal.Add ("dockyard", MainClass.GetRandomNumber (_buildingLowerBound, _buildingMax20));
+			//retVal.Add ("dockyard", MainClass.GetRandomNumber (_buildingLowerBound, _buildingMax20));
 			retVal.Add ("anti_air_building", MainClass.GetRandomNumber (_buildingLowerBound, _buildingMax5));
 			retVal.Add ("radar_station", MainClass.GetRandomNumber (_buildingLowerBound, _buildingMax3));
 
