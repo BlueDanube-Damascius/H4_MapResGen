@@ -31,6 +31,7 @@ namespace H4_MapResGen
 			Console.WriteLine ("S - Generate new (S)tates");
 			Console.WriteLine ("D - Generate new rows for (D)efinitions.csv");
 			Console.WriteLine ("E - Generate (E)vents");
+			Console.WriteLine ("T - Generate Duodex (T)ech locs");
 			//Console.WriteLine ("F - Generate (F)ocus Tree");
 			bool operationSelected = false;
 			while (!operationSelected) {
@@ -47,10 +48,15 @@ namespace H4_MapResGen
 					Events.EventsMain ();
 					operationSelected = true;
 				}
-		//		if (input == "F" || input == "f") {
-		//			FocusTree.FocusMain ();
-		//			operationSelected = true;
-		//		}
+				if (input == "T" || input == "t")
+				{
+					TechLoc.TechLocMain();
+					operationSelected = true;
+				}
+				//		if (input == "F" || input == "f") {
+				//			FocusTree.FocusMain ();
+				//			operationSelected = true;
+				//		}
 				if (!operationSelected) {
 					Console.WriteLine ("Bad input, please try again.");
 				}

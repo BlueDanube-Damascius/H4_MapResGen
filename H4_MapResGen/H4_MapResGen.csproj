@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -33,6 +33,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\TechLoc.cs" />
+    <Compile Include="Logic\TechLocGeneration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logic\FileManagement.cs" />
@@ -57,11 +59,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Logic\" />
-    <Folder Include="Entities\Definitions\" />
-    <Folder Include="Entities\States\" />
-    <Folder Include="Entities\Events\" />
     <Folder Include="Entities\Focus Trees\" />
   </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ namespace H4_MapResGen.Logic
 {
 	public class FileManagement
 	{
-		public static char[] seperators = { ',', ';', '-' };
+		public static char[] seperators = { ',', ';', '-', '\n' };
 
 		public static string GetImportFile (string search)
 		{
@@ -71,6 +71,17 @@ namespace H4_MapResGen.Logic
 			using (StreamWriter sw = new StreamWriter (Path.Combine (Environment.CurrentDirectory, filename))) {
 				foreach (var line in events) {
 					sw.WriteLine (line);
+				}
+			}
+		}
+		public static void SaveTechsToFile(List<string> input)
+		{
+			var filename = string.Format("techlocalisationgenerated{0}.txt", DateTime.Now.ToString());
+			using (StreamWriter sw = new StreamWriter(Path.Combine(Environment.CurrentDirectory, filename)))
+			{
+				foreach (var line in input)
+				{
+					sw.WriteLine(line);
 				}
 			}
 		}

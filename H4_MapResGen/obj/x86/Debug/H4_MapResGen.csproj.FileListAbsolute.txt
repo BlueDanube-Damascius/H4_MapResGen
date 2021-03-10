@@ -1,0 +1,6 @@
+C:\Users\Damascius\source\repos\H4_MapResGen\H4_MapResGen\obj\x86\Debug\H4_MapResGen.csprojAssemblyReference.cache
+C:\Users\Damascius\source\repos\H4_MapResGen\H4_MapResGen\obj\x86\Debug\H4_MapResGen.csproj.CoreCompileInputs.cache
+C:\Users\Damascius\source\repos\H4_MapResGen\H4_MapResGen\obj\x86\Debug\H4_MapResGen.exe
+C:\Users\Damascius\source\repos\H4_MapResGen\H4_MapResGen\bin\Debug\H4_MapResGen.exe
+C:\Users\Damascius\source\repos\H4_MapResGen\H4_MapResGen\bin\Debug\H4_MapResGen.pdb
+C:\Users\Damascius\source\repos\H4_MapResGen\H4_MapResGen\obj\x86\Debug\H4_MapResGen.pdb
