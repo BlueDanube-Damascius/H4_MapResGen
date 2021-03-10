@@ -76,7 +76,7 @@ namespace H4_MapResGen.Logic
 		}
 		public static void SaveTechsToFile(List<string> input)
 		{
-			var filename = string.Format("techlocalisationgenerated{0}.txt", DateTime.Now.ToString());
+			var filename = string.Format("techlocalisationgenerated{0}.txt", DateTime.Now.ToFileTime());
 			using (StreamWriter sw = new StreamWriter(Path.Combine(Environment.CurrentDirectory, filename)))
 			{
 				foreach (var line in input)
